@@ -43,11 +43,11 @@ public class RegisterActivity extends AppCompatActivity {
             etName.setError("Insira seu nome");
             return;
         }
-        if (!Util.isValidEmail(email)) {
+        if (!Utils.isValidEmail(email)) {
             etEmail.setError("E-mail inválido");
             return;
         }
-        if (!Util.isStrongPassword(password)) {
+        if (!Utils.isStrongPassword(password)) {
             etPassword.setError("Senha fraca (mín. 6 caracteres)");
             return;
         }
@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        String hashed = Util.sha256(password);
+        String hashed = Utils.sha256(password);
 
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(email + "_name", name);

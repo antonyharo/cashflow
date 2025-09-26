@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Util {
+public class Utils {
 
     public static String sha256(String input) {
         try {

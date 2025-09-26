@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim().toLowerCase();
         String password = etPassword.getText().toString();
 
-        if (!Util.isValidEmail(email)) {
+        if (!Utils.isValidEmail(email)) {
             etEmail.setError("E-mail inválido");
             return;
         }
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String hashed = Util.sha256(password);
+        String hashed = Utils.sha256(password);
         if (!hashed.equals(storedHash)) {
             Toast.makeText(this, "Senha incorreta", Toast.LENGTH_SHORT).show();
             return;
