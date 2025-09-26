@@ -10,39 +10,48 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String PREFS_NAME = "user_prefs";
+    private static final String KEY_USER_ID = "user_id";
+    private static final String KEY_USER_NAME = "user_name";
+
     private TextView tvWelcome;
-    private Button btnLogout;
-    private SharedPreferences prefs;
-    private static final String PREFS_NAME = "users_prefs";
-    private static final String KEY_LOGGED_IN_EMAIL = "logged_in_email";
+    private Button btnViewTransactions;
+    private Button btnNewTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-
         tvWelcome = findViewById(R.id.tvWelcome);
-        btnLogout = findViewById(R.id.btnLogout);
+        btnViewTransactions = findViewById(R.id.btnViewTransactions);
+        btnNewTransaction = findViewById(R.id.btnNewTransaction);
 
-        String email = getIntent().getStringExtra("email");
-        if (email == null) {
-            email = prefs.getString(KEY_LOGGED_IN_EMAIL, "Usuário");
-        }
+        // pegando dados do user do shared preferences
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int userId = prefs.getInt(KEY_USER_ID, -1);
+        String userName = prefs.getString(KEY_USER_NAME, "User");
 
-        String name = prefs.getString(email + "_name", null);
-        if (name == null) name = email;
-
-        tvWelcome.setText("Bem-vindo, " + name + "!");
-
-        btnLogout.setOnClickListener(v -> {
-            prefs.edit().remove(KEY_LOGGED_IN_EMAIL).apply();
-            // volta para login e limpa stack
+        // Se usuário não estiver logado, pode redirecionar para LoginActivity
+        if (userId == -1) {
             Intent i = new Intent(this, LoginActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             finish();
+            return;
+        }
+
+        // Boas-vindas
+        tvWelcome.setText("Welcome, " + userName + "!");
+
+        // Botão para ver a lista de transações
+        btnViewTransactions.setOnClickListener(v -> {
+            Intent i = new Intent(this, TransactionListActivity.class);
+            startActivity(i);
+        });
+
+        btnNewTransaction.setOnClickListener(v -> {
+            Intent i = new Intent(this, TransactionActivity.class);
+            startActivity(i);
         });
     }
 }
