@@ -9,7 +9,7 @@
     <!-- Mensagem de boas-vindas -->
     <TextView
         android:id="@+id/tvWelcome"
-        android:text="Bem-vindo!"
+        android:text="Welcome, User!"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_width="0dp"
@@ -18,30 +18,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnViewTransactions"
         app:layout_constraintVertical_bias="0.3"/>
 
-    <!-- Botão para cadastro -->
+    <!-- Botão para ver a lista de transações -->
     <Button
-        android:id="@+id/btnRegister"
-        android:text="Cadastrar"
+        android:id="@+id/btnViewTransactions"
+        android:text="Ver transações"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@id/tvWelcome"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNewTransaction"/>
 
-    <!-- Botão para login -->
+    <!-- Botão para criar nova transação -->
     <Button
-        android:id="@+id/btnLogin"
-        android:text="Entrar"
+        android:id="@+id/btnNewTransaction"
+        android:text="Adicionar nova transação"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/btnRegister"
+        app:layout_constraintTop_toBottomOf="@id/btnViewTransactions"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
