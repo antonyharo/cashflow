@@ -11,38 +11,38 @@
 
         <EditText
             android:id="@+id/etType"
-            android:hint="Type (Income/Expense)"
+            android:hint="Tipo (Entrada/Saída)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/etValue"
-            android:hint="Value"
+            android:hint="Valor"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/etDescription"
-            android:hint="Description"
+            android:hint="Descrição"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/etDate"
-            android:hint="Date (YYYY-MM-DD)"
+            android:hint="Data (YYYY-MM-DD)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/etCategory"
-            android:hint="Category"
+            android:hint="Categoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/btnSave"
-            android:text="Save"
+            android:text="Salvar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"/>

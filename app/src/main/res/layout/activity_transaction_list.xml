@@ -5,15 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Botão para criar nova transação -->
     <Button
         android:id="@+id/btnNewTransaction"
-        android:text="New Transaction"
+        android:text="Nova Transação"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"/>
 
-    <!-- Lista de transações -->
     <ListView
         android:id="@+id/lvTransactions"
         android:layout_width="match_parent"

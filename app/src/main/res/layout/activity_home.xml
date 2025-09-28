@@ -9,7 +9,7 @@
     <!-- Mensagem de boas-vindas -->
     <TextView
         android:id="@+id/tvWelcome"
-        android:text="Welcome, User!"
+        android:text="Bem vindo, User!"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_width="0dp"
