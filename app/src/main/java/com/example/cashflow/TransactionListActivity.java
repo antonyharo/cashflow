@@ -39,9 +39,9 @@ public class TransactionListActivity extends AppCompatActivity {
 
         lvTransactions.setOnItemClickListener((parent, view, position, id) -> {
             Transaction t = transactions.get(position);
-            String[] options = {"Edit", "Delete"};
+            String[] options = {"Editar", "Excluir"};
             new AlertDialog.Builder(this)
-                    .setTitle("Select Action")
+                    .setTitle("O que deseja fazer?")
                     .setItems(options, (dialog, which) -> {
                         if (which == 0) {
                             // Editar
@@ -51,7 +51,7 @@ public class TransactionListActivity extends AppCompatActivity {
                         } else {
                             // Excluir
                             boolean success = db.deleteTransaction(t.getId());
-                            Toast.makeText(this, success ? "Transaction deleted" : "Error deleting", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, success ? "Transação excluida" : "Erro ao excluir", Toast.LENGTH_SHORT).show();
                             loadTransactions();
                         }
                     }).show();

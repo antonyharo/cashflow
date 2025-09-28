@@ -1,14 +1,11 @@
 package com.example.cashflow;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.Serializable;
 
 public class TransactionActivity extends AppCompatActivity {
 
@@ -54,7 +51,7 @@ public class TransactionActivity extends AppCompatActivity {
         String category = etCategory.getText().toString().trim();
 
         if (type.isEmpty() || valueStr.isEmpty() || description.isEmpty() || date.isEmpty() || category.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -62,7 +59,7 @@ public class TransactionActivity extends AppCompatActivity {
         try {
             value = Double.parseDouble(valueStr);
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Invalid value", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Valor inválido", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -70,11 +67,11 @@ public class TransactionActivity extends AppCompatActivity {
         if (currentTransaction == null) {
             // Nova transação
             success = db.insertTransaction(type, value, description, date, category, userId);
-            Toast.makeText(this, success ? "Transaction added" : "Error adding transaction", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, success ? "Transação adicionada" : "Erro ao adicionar transação", Toast.LENGTH_SHORT).show();
         } else {
             // Atualiza transação existente
             success = db.updateTransaction(currentTransaction.getId(), type, value, description, date, category, userId);
-            Toast.makeText(this, success ? "Transaction updated" : "Error updating transaction", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, success ? "Transação atualizada" : "Erro ao atualizar transação", Toast.LENGTH_SHORT).show();
         }
 
         if (success) finish(); // Volta para lista

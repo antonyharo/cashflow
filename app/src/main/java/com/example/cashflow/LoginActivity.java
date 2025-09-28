@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,12 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText etEmail, etPassword;
+    // Prefs
+    private static final String PREFS_NAME = "user_prefs";
+
+    private SharedPreferences prefs;
+
+    // Views
+    private EditText etUsername, etPassword;
     private Button btnLogin;
     private TextView tvGoRegister;
-    private SharedPreferences prefs;
-    private static final String PREFS_NAME = "users_prefs";
-    private static final String KEY_LOGGED_IN_EMAIL = "logged_in_email";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,62 +32,52 @@ public class LoginActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
-        etEmail = findViewById(R.id.etEmail);
+        initViews();
+        setupListeners();
+    }
+
+    private void initViews() {
+        etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvGoRegister = findViewById(R.id.tvGoRegister);
-
-        btnLogin.setOnClickListener(v -> doLogin());
-        tvGoRegister.setOnClickListener(v -> {
-            Intent i = new Intent(this, RegisterActivity.class);
-            startActivity(i);
-        });
-
-        // se já estiver logado redireciona
-        String loggedEmail = prefs.getString(KEY_LOGGED_IN_EMAIL, null);
-        if (loggedEmail != null) {
-            goToMain(loggedEmail);
-        }
     }
 
-    private void doLogin() {
-        String email = etEmail.getText().toString().trim().toLowerCase();
+    private void setupListeners() {
+        btnLogin.setOnClickListener(v -> attemptLogin());
+        tvGoRegister.setOnClickListener(v -> {
+            startActivity(new Intent(this, RegisterActivity.class));
+        });
+    }
+
+    private void attemptLogin() {
+        String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
 
-        if (!Utils.isValidEmail(email)) {
-            etEmail.setError("E-mail inválido");
+        if (TextUtils.isEmpty(username)) {
+            etUsername.setError("Insira o seu nome de usuário");
             return;
         }
-        if (password.isEmpty()) {
+
+        if (TextUtils.isEmpty(password)) {
             etPassword.setError("Insira a senha");
             return;
         }
 
-        String storedHash = prefs.getString(email + "_pw", null);
-        if (storedHash == null) {
-            Toast.makeText(this, "Conta não encontrada", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
+        String storedHash = prefs.getString("password_hash", null);
         String hashed = Utils.sha256(password);
+
         if (!hashed.equals(storedHash)) {
             Toast.makeText(this, "Senha incorreta", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // salvar estado de login (simples)
-        prefs.edit().putString(KEY_LOGGED_IN_EMAIL, email).apply();
-
         Toast.makeText(this, "Login bem-sucedido", Toast.LENGTH_SHORT).show();
-        goToMain(email);
-    }
 
-    private void goToMain(String email) {
-        Intent i = new Intent(this, MainActivity.class);
-        // limpar backstack para que usuário não volte ao login com back
+
+        Intent i = new Intent(this, HomeActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        i.putExtra("email", email);
+        i.putExtra("username", username);
         startActivity(i);
-        finish();
     }
 }
