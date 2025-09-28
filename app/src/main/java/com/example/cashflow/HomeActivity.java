@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
 
         String userName = getIntent().getStringExtra("username");
 
-        tvWelcome.setText("Welcome, " + userName + "!");
+        tvWelcome.setText("Bem vindo, " + userName + "!");
 
         btnViewTransactions.setOnClickListener(v -> {
             Intent i = new Intent(this, TransactionListActivity.class);
