@@ -46,4 +46,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
+    <!-- NOVO BOTÃO: Ver Relatório Financeiro -->
+    <Button
+        android:id="@+id/btnReport"
+        android:text="Resumo Financeiro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:backgroundTint="#FF9800"
+        app:layout_constraintTop_toBottomOf="@id/btnNewTransaction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView tvWelcome;
     private Button btnViewTransactions;
     private Button btnNewTransaction;
+    private Button btnReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
         tvWelcome = findViewById(R.id.tvWelcome);
         btnViewTransactions = findViewById(R.id.btnViewTransactions);
         btnNewTransaction = findViewById(R.id.btnNewTransaction);
+        btnReport = findViewById(R.id.btnReport);
 
         String userName = getIntent().getStringExtra("username");
 
@@ -33,6 +35,11 @@ public class HomeActivity extends AppCompatActivity {
 
         btnNewTransaction.setOnClickListener(v -> {
             Intent i = new Intent(this, TransactionActivity.class);
+            startActivity(i);
+        });
+
+        btnReport.setOnClickListener(v -> {
+            Intent i = new Intent(this, ReportActivity.class);
             startActivity(i);
         });
     }
